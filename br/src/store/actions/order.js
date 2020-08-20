@@ -34,4 +34,9 @@ export const purchaseBurrger = (orderData) => {
             } );
     
     };
+};
+export const purchaseInit = () => {
+    return {
+        type: actionTypes.PURCHASE_INIT
+    };
 }
