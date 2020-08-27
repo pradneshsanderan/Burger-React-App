@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import Logout from './containers/Auth/Logout/Logout';
 import Layout from './hoc/Layout/Layout';
@@ -8,11 +8,11 @@ import Orders from './containers/Orders/Orders';
 import Auth from './containers/Auth/Auth';
 import * as actions from './store/actions/index';
 import { connect } from 'react-redux';
-class App extends Component {
-  componentDidMount() {
-    this.props.onTryAutoSignUp();
-  }
-  render() {
+const app = props => {
+ useEffect(() => {
+  props.onTryAutoSignUp();
+ },[]);
+  
     let routes = (
       <Switch>
         <Route path="/auth" component={Auth} />
@@ -21,7 +21,7 @@ class App extends Component {
       </Switch>
 
     );
-    if (this.props.isAuthenticated) {
+    if (props.isAuthenticated) {
       routes=(
         <Switch>
         <Route path="/checkout" component={Checkout} />
@@ -39,7 +39,7 @@ class App extends Component {
         </Layout>
       </div>
     );
-  }
+  
 }
 const mapStateToProps = state => {
   return {
@@ -51,4 +51,4 @@ const mapDispatchToProps = dispatch => {
     onTryAutoSignUp: () => dispatch(actions.authCheckState())
   };
 };
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(app));
