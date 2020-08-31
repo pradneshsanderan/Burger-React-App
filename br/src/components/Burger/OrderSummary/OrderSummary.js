@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import Aux from '../../../hoc/Auxip/Auxilp';
 import Button from '../../UI/Button/Button';
 
-class OrderSummary extends Component {
-    render () {
-        const ingredientSummary = Object.keys( this.props.ingredients )
+const orderSummary = props => {
+   
+        const ingredientSummary = Object.keys( props.ingredients )
             .map( igKey => {
                 return (
                     <li key={igKey}>
-                        <span style={{ textTransform: 'capitalize' }}>{igKey}</span>: {this.props.ingredients[igKey]}
+                        <span style={{ textTransform: 'capitalize' }}>{igKey}</span>: {props.ingredients[igKey]}
                     </li> );
             } );
 
@@ -26,7 +26,7 @@ class OrderSummary extends Component {
                 <Button btnType="Success" clicked={this.props.purchaseContinued}>CONTINUE</Button>
             </Aux>
         );
-    }
+    
 }
 
-export default OrderSummary;
+export default orderSummary;
