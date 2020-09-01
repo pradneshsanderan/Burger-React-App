@@ -39,12 +39,14 @@ const auth = props => {
         }
     })
     const [isSignUp, setIsSignUp] = useState(true);
+    const {buildingBurger, authRedirect, onSetAuthRedirectPath} = props;
+    useEffect(() => {
+        if (buildingBurger && authRedirectPath !== '/') {
+           onSetAuthRedirectPath();
+        }
+    }, [buildingBurger, authRedirect, onSetAuthRedirectPath]);
 }
-useEffect(() => {
-    if (props.buildingBurger && props.authRedirectPath !== '/') {
-        props.onSetAuthRedirectPath();
-    }
-}, []);
+
 
 
 
@@ -115,7 +117,7 @@ return (
             btnType="Danger">SWITCH TO {state.isSignUp ? 'SIGN IN' : 'SIGN UP'}</Button>
     </div>
 );
-        
+
 
 
 const mapStateToProps = state => {

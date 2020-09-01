@@ -16,10 +16,11 @@ import axios from '../../axios-orders';
     //     super(props);
     //     this.state = {...}
     // }
+    const {onInitIngredients} = props;
     const[purchasing,setPurchasing] = useState(false);
     useEffect(() => {
-        props.onInitIngredients();
-    },[]);
+      onInitIngredients();
+    },[onInitIngredients]);
 
     const updatePurchaseState = ( ingredients ) => {
         const sum = Object.keys( ingredients )

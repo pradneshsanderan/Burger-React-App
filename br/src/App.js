@@ -9,37 +9,39 @@ import Auth from './containers/Auth/Auth';
 import * as actions from './store/actions/index';
 import { connect } from 'react-redux';
 const app = props => {
- useEffect(() => {
-  props.onTryAutoSignUp();
- },[]);
+  const { onTryAutoSignUp } = props;
   
-    let routes = (
-      <Switch>
-        <Route path="/auth" component={Auth} />
-        <Route path="/" exact component={BurgerBuilder} />
-        <Redirect to='/'/>
-      </Switch>
+  useEffect(() => {
+    onTryAutoSignUp();
+  }, [onTryAutoSignUp]);
 
-    );
-    if (props.isAuthenticated) {
-      routes=(
-        <Switch>
+  let routes = (
+    <Switch>
+      <Route path="/auth" component={Auth} />
+      <Route path="/" exact component={BurgerBuilder} />
+      <Redirect to='/' />
+    </Switch>
+
+  );
+  if (props.isAuthenticated) {
+    routes = (
+      <Switch>
         <Route path="/checkout" component={Checkout} />
-        <Route path="/auth" component={Auth} />  
+        <Route path="/auth" component={Auth} />
         <Route path="/orders" component={Orders} />
         <Route path="/logout" component={Logout} />
         <Route path="/" exact component={BurgerBuilder} />
       </Switch>
-      );
-    }
-    return (
-      <div>
-        <Layout>
-      {routes}
-        </Layout>
-      </div>
     );
-  
+  }
+  return (
+    <div>
+      <Layout>
+        {routes}
+      </Layout>
+    </div>
+  );
+
 }
 const mapStateToProps = state => {
   return {
